@@ -1,4 +1,4 @@
-#include "menu.h"
+#include "barMenu.h"
 
 void getAllSuppliers(DBConnection &dbConnection) {
     SupplierMapper suplierMapper = SupplierMapper(&dbConnection);

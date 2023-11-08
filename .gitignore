@@ -1,2 +1,6 @@
 .vscode/
 dump.plain
+*.o 
+./*/*.o 
+./*/*/*.o
+lab1

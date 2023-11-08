@@ -1,4 +1,4 @@
-#include "menu.h"
+#include "barMenu.h"
 
 void getAllEmployee(DBConnection &dbConnection) {
     EmployeeMapper emplMapper = EmployeeMapper(&dbConnection);

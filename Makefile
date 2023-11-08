@@ -1,5 +1,3 @@
-.PHONY: build
-
 CC=g++
 CFLAGS=-I/opt/homebrew/Cellar/libpq/16.0/include/
 CFLAGS+=-I./DataClasses/Employee/
@@ -36,18 +34,13 @@ SRCS+= Menu/barMenu.cpp Menu/employeeMenu.cpp Menu/supplierMenu.cpp
 
 OBJS=$(SRCS:.cpp=.o)
 
-all: clean lab1
+all: lab1
 
-build/%.o: %.cpp
+%.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# build/%.o: | build
-
-# build:
-# 	mkdir -p build
-
-lab1: $(OBJS)
+lab1: $(SRCS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
 clean:
-	rm -rf ./*/*.o lab1
+	rm -rf *.o ./*/*.o ./*/*/*.o lab1
