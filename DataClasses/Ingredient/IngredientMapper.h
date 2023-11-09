@@ -1,13 +1,14 @@
 #ifndef INGREDIENT_MAPPER_H
 #define INGREDIENT_MAPPER_H
 
+#include <vector>
+
 #include "DBConnection.h"
 #include "Ingredient.h"
 #include "ProductMapper.h"
-#include <vector>
 
 class IngredientMapper {
-public:
+   public:
     IngredientMapper(DBConnection* conn, ProductMapper* productMapper);
     ~IngredientMapper();
 
@@ -16,7 +17,8 @@ public:
     bool save(Ingredient& ingredient);
     bool remove(Ingredient& ingredient);
 
-private:
+   private:
+    void saveId(PGresult* res, Ingredient& ingredient);
     DBConnection* conn;
     ProductMapper* productMapper;
 };

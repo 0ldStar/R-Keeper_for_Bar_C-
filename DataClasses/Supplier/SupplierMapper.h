@@ -1,13 +1,14 @@
 #ifndef SUPPLIER_MAPPER_H
 #define SUPPLIER_MAPPER_H
 
-#include "DBConnection.h"
-#include "Supplier.h"
-#include "BankDetailsMapper.h"
 #include <vector>
 
+#include "BankDetailsMapper.h"
+#include "DBConnection.h"
+#include "Supplier.h"
+
 class SupplierMapper {
-public:
+   public:
     SupplierMapper(DBConnection* conn);
     ~SupplierMapper();
 
@@ -16,7 +17,8 @@ public:
     bool save(Supplier& supplier);
     bool remove(Supplier& supplier);
 
-private:
+   private:
+    void saveId(PGresult* res, Supplier& supplier);
     DBConnection* conn;
 };
 

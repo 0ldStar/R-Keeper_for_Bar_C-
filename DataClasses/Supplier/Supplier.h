@@ -5,6 +5,8 @@
 #include <string>
 
 class Supplier {
+    friend class SupplierMapper;
+
    public:
     Supplier(unsigned id, std::string name, std::string postAddress, std::string phoneNumber, std::string faxNumber, std::string email);
     Supplier(std::string name, std::string postAddress, std::string phoneNumber, std::string faxNumber, std::string email);

@@ -15,6 +15,7 @@ class EmployeeMapper {
     bool remove(Employee& employee);
 
    private:
+    void saveId(PGresult* res, Employee& employee);
     DBConnection* conn;
     /* data */
 };

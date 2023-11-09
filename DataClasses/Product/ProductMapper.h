@@ -1,12 +1,13 @@
 #ifndef PRODUCT_MAPPER_H
 #define PRODUCT_MAPPER_H
 
-#include "DBConnection.h"
-#include "Product.h"
 #include <vector>
 
+#include "DBConnection.h"
+#include "Product.h"
+
 class ProductMapper {
-public:
+   public:
     ProductMapper(DBConnection* conn);
     ~ProductMapper();
 
@@ -15,7 +16,8 @@ public:
     bool save(Product& product);
     bool remove(Product& product);
 
-private:
+   private:
+    void saveId(PGresult* res, Product& product);
     DBConnection* conn;
 };
 

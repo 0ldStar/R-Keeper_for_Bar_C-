@@ -7,14 +7,11 @@ ProductMapper::ProductMapper(DBConnection* conn) {
 ProductMapper::~ProductMapper() {
 }
 
-void putPQResToList(PGresult* res, std::vector<Product>& productList) {
-    int ncols = PQnfields(res);
-    for (int i = 0; i < ncols; i++) {
-        char* name = PQfname(res, i);
-        printf("%s ", name);
-    }
-    printf("\n");
+void ProductMapper::saveId(PGresult* res, Product& product) {
+    product.id = atoi(PQgetvalue(res, 0, 0));
+}
 
+void putPQResToList(PGresult* res, std::vector<Product>& productList) {
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);
@@ -82,17 +79,21 @@ bool ProductMapper::save(Product& product) {
             res = NULL;
         }
     } else {
-        char query[] = "INSERT INTO products (name) VALUES ($1);";
+        char query[] = "INSERT INTO products (name) VALUES ($1) RETURNING id;";
         const char* params[1];
         std::vector<std::string> productString = product.getString();
         params[0] = productString[1].c_str();
         res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, product);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

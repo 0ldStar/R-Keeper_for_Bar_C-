@@ -6,7 +6,8 @@
 
 class Product {
     friend class ProductMapper;
-public:
+
+   public:
     Product(unsigned id, std::string name);
     Product(std::string name);
     ~Product();
@@ -16,7 +17,7 @@ public:
     unsigned getId() const;
     std::string getName() const;
 
-private:
+   private:
     unsigned id;
     std::string name;
 };

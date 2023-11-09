@@ -5,7 +5,9 @@
 #include <string>
 
 class Ingredient {
-public:
+    friend class IngredientMapper;
+
+   public:
     Ingredient(unsigned id, unsigned productId, unsigned quantity, std::string unitOfMeasurement);
     Ingredient(unsigned productId, unsigned quantity, std::string unitOfMeasurement);
     ~Ingredient();
@@ -17,7 +19,7 @@ public:
     unsigned getQuantity() const;
     std::string getUnitOfMeasurement() const;
 
-private:
+   private:
     unsigned id;
     unsigned productId;
     unsigned quantity;

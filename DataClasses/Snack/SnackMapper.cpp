@@ -7,14 +7,11 @@ SnackMapper::SnackMapper(DBConnection* conn) {
 SnackMapper::~SnackMapper() {
 }
 
-void putPQResToList(PGresult* res, std::vector<Snack>& snackList) {
-    int ncols = PQnfields(res);
-    for (int i = 0; i < ncols; i++) {
-        char* name = PQfname(res, i);
-        printf("%s ", name);
-    }
-    printf("\n");
+void SnackMapper::saveId(PGresult* res, Snack& snack) {
+    snack.id = atoi(PQgetvalue(res, 0, 0));
+}
 
+void putPQResToList(PGresult* res, std::vector<Snack>& snackList) {
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);
@@ -93,11 +90,15 @@ bool SnackMapper::save(Snack& snack) {
             params[i] = snackString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 2, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, snack);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

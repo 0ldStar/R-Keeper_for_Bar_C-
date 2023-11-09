@@ -8,14 +8,11 @@ IngredientMapper::IngredientMapper(DBConnection* conn, ProductMapper* productMap
 IngredientMapper::~IngredientMapper() {
 }
 
-void putPQResToList(PGresult* res, std::vector<Ingredient>& ingredientList) {
-    int ncols = PQnfields(res);
-    for (int i = 0; i < ncols; i++) {
-        char* name = PQfname(res, i);
-        printf("%s ", name);
-    }
-    printf("\n");
+void IngredientMapper::saveId(PGresult* res, Ingredient& ingredient) {
+    ingredient.id = atoi(PQgetvalue(res, 0, 0));
+}
 
+void putPQResToList(PGresult* res, std::vector<Ingredient>& ingredientList) {
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);
@@ -89,18 +86,22 @@ bool IngredientMapper::save(Ingredient& ingredient) {
     } else {
         char query[] =
             "INSERT INTO ingredients (product_id, quantity, unit_of_measurement)"
-            "VALUES ($1, $2, $3);";
+            "VALUES ($1, $2, $3) RETURNING id;";
         const char* params[3];
         std::vector<std::string> ingredientString = ingredient.getString();
         for (size_t i = 0; i < 3; i++)
             params[i] = ingredientString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 3, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, ingredient);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

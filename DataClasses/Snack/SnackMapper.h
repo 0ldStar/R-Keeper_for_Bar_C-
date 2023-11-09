@@ -1,12 +1,13 @@
 #ifndef SNACK_MAPPER
 #define SNACK_MAPPER
 
-#include "DBConnection.h"
-#include "Snack.h"
 #include <vector>
 
+#include "DBConnection.h"
+#include "Snack.h"
+
 class SnackMapper {
-public:
+   public:
     SnackMapper(DBConnection* conn);
     ~SnackMapper();
     std::vector<Snack> getByName(std::string name);
@@ -14,7 +15,8 @@ public:
     bool save(Snack& snack);
     bool remove(Snack& snack);
 
-private:
+   private:
+    void saveId(PGresult* res, Snack& snack);
     DBConnection* conn;
 };
 

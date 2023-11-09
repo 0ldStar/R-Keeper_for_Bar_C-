@@ -7,6 +7,10 @@ EmployeeMapper::EmployeeMapper(DBConnection* conn) {
 EmployeeMapper::~EmployeeMapper() {
 }
 
+void EmployeeMapper::saveId(PGresult* res, Employee& employee) {
+    employee.id = atoi(PQgetvalue(res, 0, 0));
+}
+
 void putPQResToList(PGresult* res, std::vector<Employee>& employeeList) {
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
@@ -82,12 +86,10 @@ bool EmployeeMapper::save(Employee& employee) {
                 PQclear(res);
                 res = NULL;
             }
-//            if (employeeString)
-//                delete employeeString;
         } else {
             char query[] =
                 "INSERT INTO employees (name, address, date_of_birth, position, salary)"
-                "VALUES ($1, $2, TO_DATE($3, 'DD.MM.YYYY'), $4, $5);";
+                "VALUES ($1, $2, TO_DATE($3, 'DD.MM.YYYY'), $4, $5) RETURNING id;";
             const char* params[5];
             std::vector<std::string> employeeString = employee.getString();
             for (size_t i = 0; i < 5; i++)
@@ -95,17 +97,19 @@ bool EmployeeMapper::save(Employee& employee) {
 
             res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 0);
 
-            if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            if (PQresultStatus(res) != PGRES_TUPLES_OK) {
                 ret = false;
-                printf("res != PGRES_COMMAND_OK\n");
+                printf("res != PGRES_TUPLES_OK\n");
                 printf("Error message: %s\n", PQerrorMessage(conn->conn));
+                PQclear(res);
+                res = NULL;
+                return ret;
             }
+            saveId(res, employee);
             if (res != NULL) {
                 PQclear(res);
                 res = NULL;
             }
-//            if (employeeString)
-//                delete employeeString;
         }
     } else {
         ret = false;

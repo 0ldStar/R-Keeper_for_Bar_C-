@@ -7,15 +7,11 @@ SupplierMapper::SupplierMapper(DBConnection* conn) {
 SupplierMapper::~SupplierMapper() {
 }
 
-void putPQResToList(PGresult* res, std::vector<Supplier>& supplierList) {
-    // int ncols = PQnfields(res);
-    // for (int i = 0; i < ncols; i++) {
-    //     char* name = PQfname(res, i);
-    //     printf("%s ", name);
-    // }
-    // printf("\n");
-    // printf("ABOBA\n");
+void SupplierMapper::saveId(PGresult* res, Supplier& supplier) {
+    supplier.id = atoi(PQgetvalue(res, 0, 0));
+}
 
+void putPQResToList(PGresult* res, std::vector<Supplier>& supplierList) {
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);
@@ -90,18 +86,22 @@ bool SupplierMapper::save(Supplier& supplier) {
     } else {
         char query[] =
             "INSERT INTO suppliers (name, post_address, phone_number, fax_number, email)"
-            "VALUES ($1, $2, $3, $4, $5);";
+            "VALUES ($1, $2, $3, $4, $5) RETURNING id;";
         const char* params[5];
         std::vector<std::string> supplierString = supplier.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = supplierString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, supplier);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

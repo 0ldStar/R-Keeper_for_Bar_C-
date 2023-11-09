@@ -7,6 +7,10 @@ DrinkMapper::DrinkMapper(DBConnection* conn) {
 DrinkMapper::~DrinkMapper() {
 }
 
+void DrinkMapper::saveId(PGresult* res, Drink& drink) {
+    drink.id = atoi(PQgetvalue(res, 0, 0));
+}
+
 void putPQResToList(PGresult* res, std::vector<Drink>& drinkList) {
     int ncols = PQnfields(res);
     for (int i = 0; i < ncols; i++) {
@@ -87,18 +91,22 @@ bool DrinkMapper::save(Drink& drink) {
     } else {
         char query[] =
             "INSERT INTO drinks (name, portion_size, capacity)"
-            "VALUES ($1, $2, $3);";
+            "VALUES ($1, $2, $3) RETURNING id;";
         const char* params[3];
         std::vector<std::string> drinkString = drink.getString();
         for (size_t i = 0; i < 3; i++)
             params[i] = drinkString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 3, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, drink);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

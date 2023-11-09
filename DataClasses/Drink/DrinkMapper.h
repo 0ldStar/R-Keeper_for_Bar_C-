@@ -16,6 +16,7 @@ class DrinkMapper {
     bool remove(Drink& drink);
 
    private:
+    void saveId(PGresult* res, Drink& drink);
     DBConnection* conn;
 };
 
