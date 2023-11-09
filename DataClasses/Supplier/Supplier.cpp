@@ -10,14 +10,14 @@ Supplier::Supplier(std::string name, std::string postAddress, std::string phoneN
 
 Supplier::~Supplier() {}
 
-std::string* Supplier::getString() {
-    std::string* stringArray = new std::string[6];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = name;
-    stringArray[2] = postAddress;
-    stringArray[3] = phoneNumber;
-    stringArray[4] = faxNumber;
-    stringArray[5] = email;
+std::vector<std::string> Supplier::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(name);
+    stringArray.push_back(postAddress);
+    stringArray.push_back(phoneNumber);
+    stringArray.push_back(faxNumber);
+    stringArray.push_back(email);
     return stringArray;
 }
 

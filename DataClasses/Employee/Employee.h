@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Employee {
     friend class EmployeeMapper;
@@ -12,7 +13,7 @@ class Employee {
     Employee(std::string name, std::string address, std::string dateOfBirth, std::string position, unsigned salary);
     ~Employee();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
     unsigned getId();
 

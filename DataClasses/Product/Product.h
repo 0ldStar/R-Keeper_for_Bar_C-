@@ -11,7 +11,7 @@ public:
     Product(std::string name);
     ~Product();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
     unsigned getId() const;
     std::string getName() const;

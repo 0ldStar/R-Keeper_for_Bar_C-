@@ -75,7 +75,7 @@ bool BankDetailsMapper::save(BankDetails& bankDetails) {
             "UPDATE bank_details SET supplier_id = $2, name = $3, city = $4, TIN = $5, settlement_account = $6"
             " WHERE id = $1;";
         const char* params[6];
-        std::string* bankDetailsString = bankDetails.getString();
+        std::vector<std::string> bankDetailsString = bankDetails.getString();
         for (size_t i = 0; i < 6; i++)
             params[i] = bankDetailsString[i].c_str();
         res = PQexecParams(conn->conn, query, 6, NULL, params, NULL, NULL, 0);
@@ -88,14 +88,12 @@ bool BankDetailsMapper::save(BankDetails& bankDetails) {
             PQclear(res);
             res = NULL;
         }
-        if (bankDetailsString)
-            delete bankDetailsString;
     } else {
         char query[] =
             "INSERT INTO bank_details (supplier_id, name, city, TIN, settlement_account)"
             "VALUES ($1, $2, $3, $4, $5);";
         const char* params[5];
-        std::string* bankDetailsString = bankDetails.getString();
+        std::vector<std::string> bankDetailsString = bankDetails.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = bankDetailsString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 1);
@@ -109,8 +107,6 @@ bool BankDetailsMapper::save(BankDetails& bankDetails) {
             PQclear(res);
             res = NULL;
         }
-        if (bankDetailsString)
-            delete bankDetailsString;
     }
     return ret;
 }

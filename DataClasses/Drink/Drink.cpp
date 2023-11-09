@@ -17,12 +17,12 @@ Drink::Drink(std::string name, unsigned portion_size, std::string capacity) {
 Drink::~Drink() {
 }
 
-std::string* Drink::getString() {
-    std::string* stringArray = new std::string[4];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = name;
-    stringArray[2] = std::to_string(portion_size);
-    stringArray[3] = capacity;
+std::vector<std::string> Drink::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(name);
+    stringArray.push_back(std::to_string(portion_size));
+    stringArray.push_back(capacity);
     return stringArray;
 }
 

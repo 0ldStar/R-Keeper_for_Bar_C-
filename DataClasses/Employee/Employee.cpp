@@ -19,14 +19,14 @@ Employee::Employee(std::string name, std::string address, std::string dateOfBirt
 Employee::~Employee() {
 }
 
-std::string* Employee::getString() {
-    std::string* stringArray = new std::string[6];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = name;
-    stringArray[2] = address;
-    stringArray[3] = dateOfBirth;
-    stringArray[4] = position;
-    stringArray[5] = std::to_string(salary);
+std::vector<std::string> Employee::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(name);
+    stringArray.push_back(address);
+    stringArray.push_back(dateOfBirth);
+    stringArray.push_back(position);
+    stringArray.push_back(std::to_string(salary));
     return stringArray;
 }
 

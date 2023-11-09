@@ -15,11 +15,11 @@ Snack::Snack(std::string name, unsigned size_of_portions) {
 Snack::~Snack() {
 }
 
-std::string* Snack::getString() {
-    std::string* stringArray = new std::string[3];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = name;
-    stringArray[2] = std::to_string(size_of_portions);
+std::vector<std::string> Snack::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(name);
+    stringArray.push_back(std::to_string(size_of_portions));
     return stringArray;
 }
 

@@ -66,7 +66,7 @@ bool RecipeMapper::save(Recipe& recipe) {
             "UPDATE %s SET ingredient_id = $2"
             " WHERE id = $1;";
         const char* params[2];
-        std::string* recipeString = recipe.getString();
+        std::vector<std::string> recipeString = recipe.getString();
         for (size_t i = 0; i < 2; i++)
             params[i] = recipeString[i].c_str();
         snprintf(query, sizeof(query), query, tableName);
@@ -80,14 +80,12 @@ bool RecipeMapper::save(Recipe& recipe) {
             PQclear(res);
             res = NULL;
         }
-        if (recipeString)
-            delete recipeString;
     } else {
         char query[] =
             "INSERT INTO %s (ingredient_id)"
             "VALUES ($1);";
         const char* params[1];
-        std::string* recipeString = recipe.getString();
+        std::vector<std::string> recipeString = recipe.getString();
         params[0] = recipeString[1].c_str();
         snprintf(query, sizeof(query), query, tableName);
         res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 1);
@@ -101,8 +99,6 @@ bool RecipeMapper::save(Recipe& recipe) {
             PQclear(res);
             res = NULL;
         }
-        if (recipeString)
-            delete recipeString;
     }
     return ret;
 }

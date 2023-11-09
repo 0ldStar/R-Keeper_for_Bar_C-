@@ -12,6 +12,7 @@ CFLAGS+=-I./DataClasses/Ingredient/
 CFLAGS+=-I./DataClasses/Supplier/
 CFLAGS+=-I./DB/
 CFLAGS+=-I./Menu/
+CFLAGS+=-g
 
 CFLAGS+=-L/opt/homebrew/Cellar/libpq/16.0/lib/
 CFLAGS+=-Wall -Wextra -std=c++20
@@ -41,6 +42,9 @@ all: lab1
 
 lab1: $(SRCS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
+
+run: lab1
+	./lab1
 
 clean:
 	rm -rf *.o ./*/*.o ./*/*/*.o lab1

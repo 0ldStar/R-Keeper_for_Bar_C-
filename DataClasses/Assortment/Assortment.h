@@ -10,7 +10,7 @@ public:
     Assortment(unsigned supplierId, double wholesalePrice, std::string deliveryTerms, std::string paymentTerms);
     ~Assortment();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
     unsigned getId() const;
     unsigned getSupplierId() const;

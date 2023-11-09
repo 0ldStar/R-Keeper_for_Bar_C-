@@ -8,13 +8,6 @@ EmployeeMapper::~EmployeeMapper() {
 }
 
 void putPQResToList(PGresult* res, std::vector<Employee>& employeeList) {
-    // int ncols = PQnfields(res);
-    // for (int i = 1; i < ncols; i++) {
-    //     char* name = PQfname(res, i);
-    //     printf("%s ", name);
-    // }
-    // printf("\n");
-
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);
@@ -25,8 +18,6 @@ void putPQResToList(PGresult* res, std::vector<Employee>& employeeList) {
         char* salary = PQgetvalue(res, i, 5);
         employeeList.push_back(Employee(atoi(id), name, address, dateOfBirth, position, strtoul(salary, NULL, 10)));
     }
-
-    // printf("Total: %d rows\n", nrows);
 }
 
 std::vector<Employee> EmployeeMapper::getByName(std::string name) {
@@ -77,7 +68,7 @@ bool EmployeeMapper::save(Employee& employee) {
                 "UPDATE employees SET name = $2, address = $3, date_of_birth = TO_DATE($4, 'DD.MM.YYYY'), position = $5, salary = $6"
                 " WHERE id = $1;";
             const char* params[6];
-            std::string* employeeString = employee.getString();
+            std::vector<std::string> employeeString = employee.getString();
             for (size_t i = 0; i < 6; i++)
                 params[i] = employeeString[i].c_str();
             res = PQexecParams(conn->conn, query, 6, NULL, params,
@@ -91,14 +82,14 @@ bool EmployeeMapper::save(Employee& employee) {
                 PQclear(res);
                 res = NULL;
             }
-            if (employeeString)
-                delete employeeString;
+//            if (employeeString)
+//                delete employeeString;
         } else {
             char query[] =
                 "INSERT INTO employees (name, address, date_of_birth, position, salary)"
                 "VALUES ($1, $2, TO_DATE($3, 'DD.MM.YYYY'), $4, $5);";
             const char* params[5];
-            std::string* employeeString = employee.getString();
+            std::vector<std::string> employeeString = employee.getString();
             for (size_t i = 0; i < 5; i++)
                 params[i] = employeeString[i + 1].c_str();
 
@@ -113,8 +104,8 @@ bool EmployeeMapper::save(Employee& employee) {
                 PQclear(res);
                 res = NULL;
             }
-            if (employeeString)
-                delete employeeString;
+//            if (employeeString)
+//                delete employeeString;
         }
     } else {
         ret = false;

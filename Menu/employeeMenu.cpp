@@ -42,7 +42,7 @@ void deleteEmployee(DBConnection &dbConnection) {
     EmployeeMapper emplMapper = EmployeeMapper(&dbConnection);
     std::string name;
     size_t j = 0;
-    bool input;
+    char input;
 
     std::cout << std::endl;
     std::cout << std::endl;
@@ -50,9 +50,9 @@ void deleteEmployee(DBConnection &dbConnection) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, name);
-    std::cout << "Do you really want to fire " << name << "?" << std::endl; // todo (y/n)
+    std::cout << "Do you really want to fire " << name << "? (y/n)" << std::endl; // todo (y/n)
     std::cin >> input;
-    if (input == false)
+    if (input != 'y')
         return;
     std::vector<Employee> employeeVector = emplMapper.getByName(name);
     if (employeeVector.size() == 0) {

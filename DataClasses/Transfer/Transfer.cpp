@@ -21,14 +21,14 @@ Transfer::Transfer(unsigned employeeId, std::string position, std::string reason
 Transfer::~Transfer() {
 }
 
-std::string* Transfer::getString() {
-    std::string* stringArray = new std::string[6];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = std::to_string(employeeId);
-    stringArray[2] = position;
-    stringArray[3] = reason;
-    stringArray[4] = std::to_string(numberOfOrder);
-    stringArray[5] = dateOfOrder;
+std::vector<std::string> Transfer::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(std::to_string(employeeId));
+    stringArray.push_back(position);
+    stringArray.push_back(reason);
+    stringArray.push_back(std::to_string(numberOfOrder));
+    stringArray.push_back(dateOfOrder);
     return stringArray;
 }
 

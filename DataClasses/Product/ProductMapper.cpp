@@ -68,7 +68,7 @@ bool ProductMapper::save(Product& product) {
     if (product.getId() != 0) {
         char query[] = "UPDATE products SET name = $2 WHERE id = $1;";
         const char* params[2];
-        std::string* productString = product.getString();
+        std::vector<std::string> productString = product.getString();
         for (size_t i = 0; i < 2; i++)
             params[i] = productString[i].c_str();
         res = PQexecParams(conn->conn, query, 2, NULL, params, NULL, NULL, 0);
@@ -81,12 +81,10 @@ bool ProductMapper::save(Product& product) {
             PQclear(res);
             res = NULL;
         }
-        if (productString)
-            delete productString;
     } else {
         char query[] = "INSERT INTO products (name) VALUES ($1);";
         const char* params[1];
-        std::string* productString = product.getString();
+        std::vector<std::string> productString = product.getString();
         params[0] = productString[1].c_str();
         res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 1);
 
@@ -99,8 +97,6 @@ bool ProductMapper::save(Product& product) {
             PQclear(res);
             res = NULL;
         }
-        if (productString)
-            delete productString;
     }
     return ret;
 }

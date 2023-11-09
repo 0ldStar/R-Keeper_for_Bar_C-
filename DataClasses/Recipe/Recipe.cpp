@@ -15,10 +15,10 @@ Recipe::Recipe(int ingredient_id, RecipeType type) {
 Recipe::~Recipe() {
 }
 
-std::string* Recipe::getString() {
-    std::string* stringArray = new std::string[3];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = std::to_string(ingredient_id);
+std::vector<std::string> Recipe::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(std::to_string(ingredient_id));
     return stringArray;
 }
 

@@ -6,10 +6,10 @@ Product::Product(std::string name) : id(0), name(name) {}
 
 Product::~Product() {}
 
-std::string* Product::getString() {
-    std::string* stringArray = new std::string[2];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = name;
+std::vector<std::string> Product::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(name);
     return stringArray;
 }
 

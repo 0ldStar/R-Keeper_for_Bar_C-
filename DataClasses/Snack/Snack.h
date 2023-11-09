@@ -12,7 +12,7 @@ public:
     Snack(std::string name, unsigned size_of_portions);
     ~Snack();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
 
 private:

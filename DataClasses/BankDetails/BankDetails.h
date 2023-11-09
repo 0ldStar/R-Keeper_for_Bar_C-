@@ -10,7 +10,7 @@ public:
     BankDetails(unsigned supplierId, std::string name, std::string city, std::string TIN, std::string settlementAccount);
     ~BankDetails();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
     unsigned getId() const;
     unsigned getSupplierId() const;

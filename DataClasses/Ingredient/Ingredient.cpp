@@ -8,12 +8,12 @@ Ingredient::Ingredient(unsigned productId, unsigned quantity, std::string unitOf
 
 Ingredient::~Ingredient() {}
 
-std::string* Ingredient::getString() {
-    std::string* stringArray = new std::string[4];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = std::to_string(productId);
-    stringArray[2] = std::to_string(quantity);
-    stringArray[3] = unitOfMeasurement;
+std::vector<std::string> Ingredient::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(std::to_string(productId));
+    stringArray.push_back(std::to_string(quantity));
+    stringArray.push_back(unitOfMeasurement);
     return stringArray;
 }
 

@@ -8,14 +8,14 @@ BankDetails::BankDetails(unsigned supplierId, std::string name, std::string city
 
 BankDetails::~BankDetails() {}
 
-std::string* BankDetails::getString() {
-    std::string* stringArray = new std::string[6];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = std::to_string(supplierId);
-    stringArray[2] = name;
-    stringArray[3] = city;
-    stringArray[4] = TIN;
-    stringArray[5] = settlementAccount;
+std::vector<std::string> BankDetails::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(std::to_string(supplierId));
+    stringArray.push_back(name);
+    stringArray.push_back(city);
+    stringArray.push_back(TIN);
+    stringArray.push_back(settlementAccount);
     return stringArray;
 }
 

@@ -10,7 +10,7 @@ public:
     Ingredient(unsigned productId, unsigned quantity, std::string unitOfMeasurement);
     ~Ingredient();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
     unsigned getId() const;
     unsigned getProductId() const;

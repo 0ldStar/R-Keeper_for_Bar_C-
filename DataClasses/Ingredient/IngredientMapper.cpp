@@ -73,7 +73,7 @@ bool IngredientMapper::save(Ingredient& ingredient) {
             "UPDATE ingredients SET product_id = $2, quantity = $3, unit_of_measurement = $4"
             " WHERE id = $1;";
         const char* params[4];
-        std::string* ingredientString = ingredient.getString();
+        std::vector<std::string> ingredientString = ingredient.getString();
         for (size_t i = 0; i < 4; i++)
             params[i] = ingredientString[i].c_str();
         res = PQexecParams(conn->conn, query, 4, NULL, params, NULL, NULL, 0);
@@ -86,14 +86,12 @@ bool IngredientMapper::save(Ingredient& ingredient) {
             PQclear(res);
             res = NULL;
         }
-        if (ingredientString)
-            delete ingredientString;
     } else {
         char query[] =
             "INSERT INTO ingredients (product_id, quantity, unit_of_measurement)"
             "VALUES ($1, $2, $3);";
         const char* params[3];
-        std::string* ingredientString = ingredient.getString();
+        std::vector<std::string> ingredientString = ingredient.getString();
         for (size_t i = 0; i < 3; i++)
             params[i] = ingredientString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 3, NULL, params, NULL, NULL, 1);
@@ -107,8 +105,6 @@ bool IngredientMapper::save(Ingredient& ingredient) {
             PQclear(res);
             res = NULL;
         }
-        if (ingredientString)
-            delete ingredientString;
     }
     return ret;
 }

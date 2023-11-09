@@ -12,7 +12,7 @@ class Drink {
     Drink(std::string name, unsigned portion_size, std::string capacity);
     ~Drink();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
 
    private:

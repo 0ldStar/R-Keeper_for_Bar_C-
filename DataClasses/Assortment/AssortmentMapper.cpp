@@ -74,7 +74,7 @@ bool AssortmentMapper::save(Assortment& assortment) {
             "UPDATE assortments SET supplier_id = $2, wholesale_price = $3, delivery_terms = $4, payment_terms = $5"
             " WHERE id = $1;";
         const char* params[5];
-        std::string* assortmentString = assortment.getString();
+        std::vector<std::string> assortmentString = assortment.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = assortmentString[i].c_str();
         res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 0);
@@ -87,14 +87,12 @@ bool AssortmentMapper::save(Assortment& assortment) {
             PQclear(res);
             res = NULL;
         }
-        if (assortmentString)
-            delete assortmentString;
     } else {
         char query[] =
             "INSERT INTO assortments (supplier_id, wholesale_price, delivery_terms, payment_terms)"
             "VALUES ($1, $2, $3, $4);";
         const char* params[4];
-        std::string* assortmentString = assortment.getString();
+        std::vector<std::string> assortmentString = assortment.getString();
         for (size_t i = 0; i < 4; i++)
             params[i] = assortmentString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 4, NULL, params, NULL, NULL, 1);
@@ -108,8 +106,6 @@ bool AssortmentMapper::save(Assortment& assortment) {
             PQclear(res);
             res = NULL;
         }
-        if (assortmentString)
-            delete assortmentString;
     }
     return ret;
 }

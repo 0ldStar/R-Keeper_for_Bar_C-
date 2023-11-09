@@ -75,7 +75,7 @@ bool TransferMapper::save(Transfer& transfer) {
             "UPDATE transfers SET employeeId = $2, position = $3, reason = $4, number_of_order = $5, date_of_order = TO_DATE($6, 'DD.MM.YYYY')"
             " WHERE id = $1;";
         const char* params[6];
-        std::string* transferString = transfer.getString();
+        std::vector<std::string> transferString = transfer.getString();
         for (size_t i = 0; i < 6; i++)
             params[i] = transferString[i].c_str();
         res = PQexecParams(conn->conn, query, 6, NULL, params, NULL, NULL, 0);
@@ -88,14 +88,12 @@ bool TransferMapper::save(Transfer& transfer) {
             PQclear(res);
             res = NULL;
         }
-        if (transferString)
-            delete transferString;
     } else {
         char query[] =
             "INSERT INTO transfers (employee_id, position, reason, number_of_order, date_of_order)"
             "VALUES ($1, $2, $3, $4, TO_DATE($5, 'DD.MM.YYYY'));";
         const char* params[5];
-        std::string* transferString = transfer.getString();
+        std::vector<std::string> transferString = transfer.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = transferString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 1);
@@ -109,8 +107,6 @@ bool TransferMapper::save(Transfer& transfer) {
             PQclear(res);
             res = NULL;
         }
-        if (transferString)
-            delete transferString;
     }
     return ret;
 }

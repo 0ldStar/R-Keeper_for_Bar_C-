@@ -10,7 +10,7 @@ class Supplier {
     Supplier(std::string name, std::string postAddress, std::string phoneNumber, std::string faxNumber, std::string email);
     ~Supplier();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
     unsigned getId() const;
     std::string getName() const;

@@ -70,7 +70,7 @@ bool SnackMapper::save(Snack& snack) {
             "UPDATE snacks SET name = $2, size_of_portions = $3"
             " WHERE id = $1;";
         const char* params[3];
-        std::string* snackString = snack.getString();
+        std::vector<std::string> snackString = snack.getString();
         for (size_t i = 0; i < 3; i++)
             params[i] = snackString[i].c_str();
         res = PQexecParams(conn->conn, query, 3, NULL, params, NULL, NULL, 0);
@@ -83,14 +83,12 @@ bool SnackMapper::save(Snack& snack) {
             PQclear(res);
             res = NULL;
         }
-        if (snackString)
-            delete snackString;
     } else {
         char query[] =
             "INSERT INTO snacks (name, size_of_portions)"
             "VALUES ($1, $2);";
         const char* params[2];
-        std::string* snackString = snack.getString();
+        std::vector<std::string> snackString = snack.getString();
         for (size_t i = 0; i < 2; i++)
             params[i] = snackString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 2, NULL, params, NULL, NULL, 1);
@@ -104,8 +102,6 @@ bool SnackMapper::save(Snack& snack) {
             PQclear(res);
             res = NULL;
         }
-        if (snackString)
-            delete snackString;
     }
     return ret;
 }

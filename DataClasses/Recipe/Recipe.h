@@ -16,7 +16,7 @@ class Recipe {
     Recipe(int ingredient_id, RecipeType type);
     ~Recipe();
 
-    std::string* getString();
+    std::vector<std::string> getString();
     void print();
 
     RecipeType getType() const { return type; }

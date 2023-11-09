@@ -9,13 +9,13 @@ Assortment::Assortment(unsigned supplierId, double wholesalePrice, std::string d
 
 Assortment::~Assortment() {}
 
-std::string* Assortment::getString() {
-    std::string* stringArray = new std::string[5];
-    stringArray[0] = std::to_string(id);
-    stringArray[1] = std::to_string(supplierId);
-    stringArray[2] = std::to_string(wholesalePrice);
-    stringArray[3] = deliveryTerms;
-    stringArray[4] = paymentTerms;
+std::vector<std::string> Assortment::getString() {
+    std::vector<std::string> stringArray;
+    stringArray.push_back(std::to_string(id));
+    stringArray.push_back(std::to_string(supplierId));
+    stringArray.push_back(std::to_string(wholesalePrice));
+    stringArray.push_back(deliveryTerms);
+    stringArray.push_back(paymentTerms);
     return stringArray;
 }
 

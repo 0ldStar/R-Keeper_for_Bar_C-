@@ -74,7 +74,7 @@ bool SupplierMapper::save(Supplier& supplier) {
             "UPDATE suppliers SET name = $2, post_address = $3, phone_number = $4, fax_number = $5, email = $6"
             " WHERE id = $1;";
         const char* params[6];
-        std::string* supplierString = supplier.getString();
+        std::vector<std::string> supplierString = supplier.getString();
         for (size_t i = 0; i < 6; i++)
             params[i] = supplierString[i].c_str();
         res = PQexecParams(conn->conn, query, 6, NULL, params, NULL, NULL, 0);
@@ -87,14 +87,12 @@ bool SupplierMapper::save(Supplier& supplier) {
             PQclear(res);
             res = NULL;
         }
-        if (supplierString)
-            delete supplierString;
     } else {
         char query[] =
             "INSERT INTO suppliers (name, post_address, phone_number, fax_number, email)"
             "VALUES ($1, $2, $3, $4, $5);";
         const char* params[5];
-        std::string* supplierString = supplier.getString();
+        std::vector<std::string> supplierString = supplier.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = supplierString[i + 1].c_str();
         res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 1);
@@ -108,8 +106,6 @@ bool SupplierMapper::save(Supplier& supplier) {
             PQclear(res);
             res = NULL;
         }
-        if (supplierString)
-            delete supplierString;
     }
     return ret;
 }
