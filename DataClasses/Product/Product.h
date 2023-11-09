@@ -1,5 +1,5 @@
-#ifndef PRODUCT
-#define PRODUCT
+#ifndef PRODUCT_H
+#define PRODUCT_H
 
 #include <iostream>
 #include <string>
@@ -21,4 +21,4 @@ private:
     std::string name;
 };
 
-#endif  // PRODUCT
+#endif  // PRODUCT_H

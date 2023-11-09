@@ -1,5 +1,5 @@
-#ifndef RECIPE
-#define RECIPE
+#ifndef RECIPE_H
+#define RECIPE_H
 
 #include <iostream>
 #include <string>
@@ -27,4 +27,4 @@ class Recipe {
     RecipeType type;
 };
 
-#endif  // RECIPE
+#endif  // RECIPE_H

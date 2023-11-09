@@ -1,5 +1,5 @@
-#ifndef DRINK_MAPPER
-#define DRINK_MAPPER
+#ifndef DRINK_MAPPER_H
+#define DRINK_MAPPER_H
 
 #include <vector>
 
@@ -19,4 +19,4 @@ class DrinkMapper {
     DBConnection* conn;
 };
 
-#endif  // DRINK_MAPPER
+#endif  // DRINK_MAPPER_H

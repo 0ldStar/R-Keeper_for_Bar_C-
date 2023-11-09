@@ -1,5 +1,5 @@
-#ifndef SNACK
-#define SNACK
+#ifndef SNACK_H
+#define SNACK_H
 
 #include <iostream>
 #include <string>
@@ -21,4 +21,4 @@ private:
     unsigned size_of_portions;
 };
 
-#endif  // SNACK
+#endif  // SNACK_H

@@ -1,5 +1,5 @@
-#ifndef EMPLOYEE_MAPPER
-#define EMPLOYEE_MAPPER
+#ifndef EMPLOYEE_MAPPER_H
+#define EMPLOYEE_MAPPER_H
 
 #include "DBConnection.h"
 #include "Employee.h"
@@ -19,4 +19,4 @@ class EmployeeMapper {
     /* data */
 };
 
-#endif  // EMPLOYEE_MAPPER
+#endif  // EMPLOYEE_MAPPER_H

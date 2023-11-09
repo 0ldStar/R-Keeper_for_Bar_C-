@@ -1,5 +1,5 @@
-#ifndef INGREDIENT
-#define INGREDIENT
+#ifndef INGREDIENT_H
+#define INGREDIENT_H
 
 #include <iostream>
 #include <string>
@@ -24,4 +24,4 @@ private:
     std::string unitOfMeasurement;
 };
 
-#endif  // INGREDIENT
+#endif  // INGREDIENT_H

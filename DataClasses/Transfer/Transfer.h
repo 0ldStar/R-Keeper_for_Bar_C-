@@ -1,5 +1,5 @@
-#ifndef TRANSFER
-#define TRANSFER
+#ifndef TRANSFER_H
+#define TRANSFER_H
 
 #include <iostream>
 #include <string>
@@ -24,4 +24,4 @@ private:
     std::string dateOfOrder;
 };
 
-#endif  // TRANSFER
+#endif  // TRANSFER_H

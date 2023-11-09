@@ -8,12 +8,13 @@ SupplierMapper::~SupplierMapper() {
 }
 
 void putPQResToList(PGresult* res, std::vector<Supplier>& supplierList) {
-    int ncols = PQnfields(res);
-    for (int i = 0; i < ncols; i++) {
-        char* name = PQfname(res, i);
-        printf("%s ", name);
-    }
-    printf("\n");
+    // int ncols = PQnfields(res);
+    // for (int i = 0; i < ncols; i++) {
+    //     char* name = PQfname(res, i);
+    //     printf("%s ", name);
+    // }
+    // printf("\n");
+    // printf("ABOBA\n");
 
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {

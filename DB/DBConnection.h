@@ -1,5 +1,5 @@
-#ifndef DB_CONNECTION
-#define DB_CONNECTION
+#ifndef DB_CONNECTION_H
+#define DB_CONNECTION_H
 #include <libpq-fe.h>
 
 #include <iostream>
@@ -21,4 +21,4 @@ class DBConnection {
     PGresult *res;
     
 };
-#endif // DB_CONNECTION
+#endif // DB_CONNECTION_H

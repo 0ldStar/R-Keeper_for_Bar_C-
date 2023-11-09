@@ -93,8 +93,6 @@ int main() {
                 break;
             case 3:
                 while (input != 7) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << std::endl;
                     std::cout << "Suppliers menu:" << std::endl;
                     std::cout << "1) Get a list of suppliers" << std::endl;
@@ -104,6 +102,8 @@ int main() {
                     std::cout << "5) Get the supplier's assortment" << std::endl;
                     std::cout << "6) Change supplier assortment" << std::endl;
                     std::cout << "7)Exit" << std::endl;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cin >> input;
                     switch (input) {
                         case 1:

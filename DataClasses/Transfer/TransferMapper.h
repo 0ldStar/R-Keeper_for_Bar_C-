@@ -1,5 +1,5 @@
-#ifndef TRANSFER_MAPPER
-#define TRANSFER_MAPPER
+#ifndef TRANSFER_MAPPER_H
+#define TRANSFER_MAPPER_H
 
 #include "DBConnection.h"
 #include "Transfer.h"
@@ -18,4 +18,4 @@ private:
     DBConnection* conn;
 };
 
-#endif  // TRANSFER_MAPPER
+#endif  // TRANSFER_MAPPER_H

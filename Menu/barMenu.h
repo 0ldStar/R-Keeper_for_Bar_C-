@@ -1,5 +1,5 @@
-#ifndef MENU
-#define MENU
+#ifndef MENU_H
+#define MENU_H
 
 #include <iostream>
 
@@ -35,4 +35,4 @@ void deleteProduct(DBConnection &dbConnection);
 void changeProduct(DBConnection &dbConnection);
 
 
-#endif  // MENU
+#endif  // MENU_H

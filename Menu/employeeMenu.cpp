@@ -16,20 +16,19 @@ void addNewEmployee(DBConnection &dbConnection) {
     EmployeeMapper emplMapper = EmployeeMapper(&dbConnection);
     std::string name, address, dateOfBirth, position;
     unsigned salary;
-    
-    // std::cin.clear();
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << std::endl;
     std::cout << "Input name" << std::endl;
-    std::cin >> name;
-    std::cout << "Input address" << std::endl;
     std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
+    std::cout << "Input address" << std::endl;
     std::getline(std::cin, address);
     std::cout << "Input date of birth (DD.MM.YYY)" << std::endl;
     std::cin >> dateOfBirth;
     std::cout << "Input position" << std::endl;
     std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, position);
     std::cout << "Input salary" << std::endl;
     std::cin >> salary;
@@ -44,11 +43,14 @@ void deleteEmployee(DBConnection &dbConnection) {
     std::string name;
     size_t j = 0;
     bool input;
+
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << "Input name" << std::endl;
-    std::cin >> name;
-    std::cout << "Do you really want to fire " << name << "?" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
+    std::cout << "Do you really want to fire " << name << "?" << std::endl; // todo (y/n)
     std::cin >> input;
     if (input == false)
         return;
@@ -77,11 +79,11 @@ void moveEmployee(DBConnection &dbConnection) {
     TransferMapper transferMapper = TransferMapper(&dbConnection);
     std::string name;
     size_t j = 0;
+
     std::cout << std::endl;
     std::cout << "Input name" << std::endl;
     std::cin >> name;
     std::vector<Employee> employeeVector = emplMapper.getByName(name);
-    // std::cout << "Vector size" << employeeVector.size() << std::endl;
     if (employeeVector.size() == 0) {
         std::cout << "Employee with name '" << name << "' not found" << std::endl;
         return;
@@ -100,13 +102,13 @@ void moveEmployee(DBConnection &dbConnection) {
     }
     std::string position, reason, dateOfOrder;
     unsigned numberOfOrder;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << std::endl;
     std::cout << "Input position" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, position);
     std::cout << "Input reason" << std::endl;
-    std::getline(std::cin, reason);
+    std::getline(std::cin, reason );
     std::cout << "Input number of order" << std::endl;
     std::cin >> numberOfOrder;
     std::cout << "Input date of order (DD.MM.YYY)" << std::endl;
@@ -123,6 +125,7 @@ void getEmployeeTransfers(DBConnection &dbConnection) {
     TransferMapper transferMapper = TransferMapper(&dbConnection);
     std::string name;
     size_t j = 0;
+
     std::cout << std::endl;
     std::cout << "Input name" << std::endl;
     std::cin >> name;

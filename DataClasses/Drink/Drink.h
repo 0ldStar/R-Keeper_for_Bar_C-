@@ -1,5 +1,5 @@
-#ifndef DRINK
-#define DRINK
+#ifndef DRINK_H
+#define DRINK_H
 
 #include <iostream>
 #include <string>
@@ -22,4 +22,4 @@ class Drink {
     std::string capacity;
 };
 
-#endif  // DRINK
+#endif  // DRINK_H

@@ -1,5 +1,5 @@
-#ifndef RECIPE_MAPPER
-#define RECIPE_MAPPER
+#ifndef RECIPE_MAPPER_H
+#define RECIPE_MAPPER_H
 
 #include <vector>
 
@@ -20,4 +20,4 @@ class RecipeMapper {
     DBConnection* conn;
 };
 
-#endif  // RECIPE_MAPPER
+#endif  // RECIPE_MAPPER_H

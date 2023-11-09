@@ -1,5 +1,5 @@
-#ifndef PRODUCT_MAPPER
-#define PRODUCT_MAPPER
+#ifndef PRODUCT_MAPPER_H
+#define PRODUCT_MAPPER_H
 
 #include "DBConnection.h"
 #include "Product.h"
@@ -19,4 +19,4 @@ private:
     DBConnection* conn;
 };
 
-#endif  // PRODUCT_MAPPER
+#endif  // PRODUCT_MAPPER_H

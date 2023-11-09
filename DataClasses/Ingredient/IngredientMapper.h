@@ -1,5 +1,5 @@
-#ifndef INGREDIENT_MAPPER
-#define INGREDIENT_MAPPER
+#ifndef INGREDIENT_MAPPER_H
+#define INGREDIENT_MAPPER_H
 
 #include "DBConnection.h"
 #include "Ingredient.h"
@@ -21,4 +21,4 @@ private:
     ProductMapper* productMapper;
 };
 
-#endif  // INGREDIENT_MAPPER
+#endif  // INGREDIENT_MAPPER_H

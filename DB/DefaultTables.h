@@ -1,5 +1,5 @@
-#ifndef DEFAULT_TABELS
-#define DEFAULT_TABELS
+#ifndef DEFAULT_TABELS_H
+#define DEFAULT_TABELS_H
 #include "DBConnection.h"
 
 class DefaultTables {
@@ -11,4 +11,4 @@ class DefaultTables {
     DBConnection* dbConnection;
     
 };
-#endif // DEFAULT_TABELS
+#endif // DEFAULT_TABELS_H

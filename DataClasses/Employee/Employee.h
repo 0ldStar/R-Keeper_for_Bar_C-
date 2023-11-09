@@ -1,5 +1,5 @@
-#ifndef EMPLOYEER
-#define EMPLOYEER
+#ifndef EMPLOYEER_H
+#define EMPLOYEER_H
 
 #include <iostream>
 #include <string>
@@ -25,4 +25,4 @@ class Employee {
     unsigned salary;
 };
 
-#endif  // EMPLOYEER
+#endif  // EMPLOYEER_H
