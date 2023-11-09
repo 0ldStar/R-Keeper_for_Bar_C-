@@ -115,9 +115,11 @@ void moveEmployee(DBConnection &dbConnection) {
     std::cin >> dateOfOrder;
 
     Transfer transfer = Transfer(employeeVector[j].getId(), position, reason, numberOfOrder, dateOfOrder);
+    std::cout << "Transfer id " << transfer.getID() << std::endl;
     if (transferMapper.save(transfer) != true) {
         std::cout << "Invalid input!" << std::endl;
     }
+    std::cout << "Transfer id " << transfer.getID() << std::endl;
 }
 
 void getEmployeeTransfers(DBConnection &dbConnection) {
@@ -145,7 +147,6 @@ void getEmployeeTransfers(DBConnection &dbConnection) {
         std::cout << "Invalid input!" << std::endl;
         return;
     }
-    std::cout << "HERE1" << std::endl;
     std::vector<Transfer> transferVector = transferMapper.getByEmployeeID(employeeVector[j].getId());
     if (transferVector.size() == 0) {
         std::cout << "Employee with name-" << name << " has no transfers" << std::endl;

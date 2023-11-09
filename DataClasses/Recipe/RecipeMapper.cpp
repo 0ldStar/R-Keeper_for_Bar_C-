@@ -88,7 +88,7 @@ bool RecipeMapper::save(Recipe& recipe) {
         std::vector<std::string> recipeString = recipe.getString();
         params[0] = recipeString[1].c_str();
         snprintf(query, sizeof(query), query, tableName);
-        res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 0);
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             ret = false;

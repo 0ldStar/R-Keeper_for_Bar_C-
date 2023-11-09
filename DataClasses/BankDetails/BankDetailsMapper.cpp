@@ -1,4 +1,5 @@
 #include "BankDetailsMapper.h"
+
 #include <iostream>
 
 BankDetailsMapper::BankDetailsMapper(DBConnection* conn) {
@@ -6,6 +7,10 @@ BankDetailsMapper::BankDetailsMapper(DBConnection* conn) {
 }
 
 BankDetailsMapper::~BankDetailsMapper() {
+}
+
+void BankDetailsMapper::saveId(PGresult* res, BankDetails& bankDetails) {
+    bankDetails.id = atoi(PQgetvalue(res, 0, 0));
 }
 
 void putPQResToList(PGresult* res, std::vector<BankDetails>& bankDetailsList) {
@@ -91,18 +96,22 @@ bool BankDetailsMapper::save(BankDetails& bankDetails) {
     } else {
         char query[] =
             "INSERT INTO bank_details (supplier_id, name, city, TIN, settlement_account)"
-            "VALUES ($1, $2, $3, $4, $5);";
+            "VALUES ($1, $2, $3, $4, $5) RETURNING id;";
         const char* params[5];
         std::vector<std::string> bankDetailsString = bankDetails.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = bankDetailsString[i + 1].c_str();
-        res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, bankDetails);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

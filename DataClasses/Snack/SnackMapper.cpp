@@ -91,7 +91,7 @@ bool SnackMapper::save(Snack& snack) {
         std::vector<std::string> snackString = snack.getString();
         for (size_t i = 0; i < 2; i++)
             params[i] = snackString[i + 1].c_str();
-        res = PQexecParams(conn->conn, query, 2, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 2, NULL, params, NULL, NULL, 0);
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             ret = false;

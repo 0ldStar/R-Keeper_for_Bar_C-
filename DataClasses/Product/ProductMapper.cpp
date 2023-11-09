@@ -86,7 +86,7 @@ bool ProductMapper::save(Product& product) {
         const char* params[1];
         std::vector<std::string> productString = product.getString();
         params[0] = productString[1].c_str();
-        res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 1, NULL, params, NULL, NULL, 0);
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             ret = false;

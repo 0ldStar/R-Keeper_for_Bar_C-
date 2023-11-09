@@ -7,14 +7,11 @@ TransferMapper::TransferMapper(DBConnection* conn) {
 TransferMapper::~TransferMapper() {
 }
 
-void putPQResToList(PGresult* res, std::vector<Transfer>& transferList) {
-    // int ncols = PQnfields(res);
-    // for (int i = 0; i < ncols; i++) {
-    //     char* name = PQfname(res, i);
-    //     printf("%s ", name);
-    // }
-    // printf("\n");
+void TransferMapper::saveId(PGresult* res, Transfer& transfer) {
+    transfer.id = atoi(PQgetvalue(res, 0, 0));
+}
 
+void putPQResToList(PGresult* res, std::vector<Transfer>& transferList) {
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);
@@ -31,7 +28,6 @@ std::vector<Transfer> TransferMapper::getByEmployeeID(unsigned employeeId) {
     PGresult* res;
     char query[200];
     std::vector<Transfer> transferList;
-    std::cout << "HERE2" << std::endl;
     snprintf(query, sizeof(query), "SELECT id, employee_id, position, reason, number_of_order, date_of_order FROM transfers WHERE employee_id = %d;", employeeId);
     res = PQexec(conn->conn, query);
 
@@ -44,7 +40,6 @@ std::vector<Transfer> TransferMapper::getByEmployeeID(unsigned employeeId) {
         PQclear(res);
         res = NULL;
     }
-    std::cout << "HERE3" << std::endl;
     return transferList;
 }
 
@@ -91,18 +86,22 @@ bool TransferMapper::save(Transfer& transfer) {
     } else {
         char query[] =
             "INSERT INTO transfers (employee_id, position, reason, number_of_order, date_of_order)"
-            "VALUES ($1, $2, $3, $4, TO_DATE($5, 'DD.MM.YYYY'));";
+            "VALUES ($1, $2, $3, $4, TO_DATE($5, 'DD.MM.YYYY')) RETURNING id;";
         const char* params[5];
         std::vector<std::string> transferString = transfer.getString();
         for (size_t i = 0; i < 5; i++)
             params[i] = transferString[i + 1].c_str();
-        res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, transfer);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

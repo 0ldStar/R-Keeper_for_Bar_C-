@@ -93,7 +93,7 @@ bool EmployeeMapper::save(Employee& employee) {
             for (size_t i = 0; i < 5; i++)
                 params[i] = employeeString[i + 1].c_str();
 
-            res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 1);
+            res = PQexecParams(conn->conn, query, 5, NULL, params, NULL, NULL, 0);
 
             if (PQresultStatus(res) != PGRES_COMMAND_OK) {
                 ret = false;

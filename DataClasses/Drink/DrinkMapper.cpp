@@ -92,7 +92,7 @@ bool DrinkMapper::save(Drink& drink) {
         std::vector<std::string> drinkString = drink.getString();
         for (size_t i = 0; i < 3; i++)
             params[i] = drinkString[i + 1].c_str();
-        res = PQexecParams(conn->conn, query, 3, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 3, NULL, params, NULL, NULL, 0);
 
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             ret = false;

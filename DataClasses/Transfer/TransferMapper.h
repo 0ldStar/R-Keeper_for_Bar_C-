@@ -15,6 +15,7 @@ public:
     bool remove(Transfer& transfer);
 
 private:
+    void saveId(PGresult* res, Transfer& transfer);
     DBConnection* conn;
 };
 

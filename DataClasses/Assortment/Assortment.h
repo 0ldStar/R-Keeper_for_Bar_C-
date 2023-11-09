@@ -5,6 +5,7 @@
 #include <string>
 
 class Assortment {
+    friend class AssortmentMapper;
 public:
     Assortment(unsigned id, unsigned supplierId, double wholesalePrice, std::string deliveryTerms, std::string paymentTerms);
     Assortment(unsigned supplierId, double wholesalePrice, std::string deliveryTerms, std::string paymentTerms);

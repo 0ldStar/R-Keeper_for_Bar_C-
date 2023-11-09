@@ -1,4 +1,5 @@
 #include "AssortmentMapper.h"
+
 #include <iostream>
 
 AssortmentMapper::AssortmentMapper(DBConnection* conn) {
@@ -6,6 +7,10 @@ AssortmentMapper::AssortmentMapper(DBConnection* conn) {
 }
 
 AssortmentMapper::~AssortmentMapper() {
+}
+
+void AssortmentMapper::saveId(PGresult* res, Assortment& assortment) {
+    assortment.id = atoi(PQgetvalue(res, 0, 0));
 }
 
 void putPQResToList(PGresult* res, std::vector<Assortment>& assortmentList) {
@@ -90,18 +95,22 @@ bool AssortmentMapper::save(Assortment& assortment) {
     } else {
         char query[] =
             "INSERT INTO assortments (supplier_id, wholesale_price, delivery_terms, payment_terms)"
-            "VALUES ($1, $2, $3, $4);";
+            "VALUES ($1, $2, $3, $4) RETURNING id;";
         const char* params[4];
         std::vector<std::string> assortmentString = assortment.getString();
         for (size_t i = 0; i < 4; i++)
             params[i] = assortmentString[i + 1].c_str();
-        res = PQexecParams(conn->conn, query, 4, NULL, params, NULL, NULL, 1);
+        res = PQexecParams(conn->conn, query, 4, NULL, params, NULL, NULL, 0);
 
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        if (PQresultStatus(res) != PGRES_TUPLES_OK) {
             ret = false;
-            printf("res != PGRES_COMMAND_OK\n");
+            printf("res != PGRES_TUPLES_OK\n");
             printf("Error message: %s\n", PQerrorMessage(conn->conn));
+            PQclear(res);
+            res = NULL;
+            return ret;
         }
+        saveId(res, assortment);
         if (res != NULL) {
             PQclear(res);
             res = NULL;

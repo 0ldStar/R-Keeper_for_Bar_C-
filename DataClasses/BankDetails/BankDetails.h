@@ -5,7 +5,9 @@
 #include <string>
 
 class BankDetails {
-public:
+    friend class BankDetailsMapper;
+
+   public:
     BankDetails(unsigned id, unsigned supplierId, std::string name, std::string city, std::string TIN, std::string settlementAccount);
     BankDetails(unsigned supplierId, std::string name, std::string city, std::string TIN, std::string settlementAccount);
     ~BankDetails();
@@ -19,7 +21,7 @@ public:
     std::string getTIN() const;
     std::string getSettlementAccount() const;
 
-private:
+   private:
     unsigned id;
     unsigned supplierId;
     std::string name;

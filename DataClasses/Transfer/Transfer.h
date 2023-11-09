@@ -7,15 +7,16 @@
 class Transfer {
     friend class TransferMapper;
 
-public:
+   public:
     Transfer(unsigned id, unsigned employeeId, std::string position, std::string reason, unsigned numberOfOrder, std::string dateOfOrder);
     Transfer(unsigned employeeId, std::string position, std::string reason, unsigned numberOfOrder, std::string dateOfOrder);
     ~Transfer();
 
     std::vector<std::string> getString();
     void print();
+    unsigned getID() { return id; }
 
-private:
+   private:
     unsigned id;
     unsigned employeeId;
     std::string position;

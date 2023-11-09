@@ -16,6 +16,8 @@ public:
     bool remove(BankDetails& bankDetails);
 
 private:
+    void saveId(PGresult* res, BankDetails& bankDetails);
+    
     DBConnection* conn;
 };
 

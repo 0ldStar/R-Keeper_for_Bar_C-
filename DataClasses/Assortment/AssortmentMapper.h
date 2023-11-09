@@ -1,13 +1,14 @@
 #ifndef ASSORTMENT_MAPPER_H
 #define ASSORTMENT_MAPPER_H
 
-#include "DBConnection.h"
-#include "Assortment.h"
-#include "SupplierMapper.h"
 #include <vector>
 
+#include "Assortment.h"
+#include "DBConnection.h"
+#include "SupplierMapper.h"
+
 class AssortmentMapper {
-public:
+   public:
     AssortmentMapper(DBConnection* conn);
     ~AssortmentMapper();
 
@@ -16,8 +17,9 @@ public:
     bool save(Assortment& assortment);
     bool remove(Assortment& assortment);
 
-private:
-    DBConnection* conn;
+   private:
+    void saveId(PGresult* res, Assortment& assortment);
+        DBConnection* conn;
 };
 
 #endif  // ASSORTMENT_MAPPER_H
