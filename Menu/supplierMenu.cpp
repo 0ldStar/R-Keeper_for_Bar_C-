@@ -129,7 +129,9 @@ void getSupplierAssortment(DBConnection &dbConnection) {
 
     std::string name;
     std::cout << "Input name of the supplier to get assortment: ";
-    std::cin >> name;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
 
     std::vector<Supplier> suppliers = supplierMapper.getByName(name);
 
@@ -151,6 +153,7 @@ void getSupplierAssortment(DBConnection &dbConnection) {
             if (!assortment.empty()) {
                 std::cout << "Assortment for supplier '" << suppliers[choice - 1].getName() << "':" << std::endl;
                 for (size_t i = 0; i < assortment.size(); ++i) {
+                    std::cout << i + 1 << ") ";
                     assortment[i].print();
                 }
             } else {
@@ -191,6 +194,7 @@ void changeSupplierAssortment(DBConnection &dbConnection) {
             if (!assortment.empty()) {
                 std::cout << "Select the assortment to change:" << std::endl;
                 for (size_t i = 0; i < assortment.size(); ++i) {
+                    std::cout << i + 1 << ") ";
                     assortment[i].print();
                 }
 

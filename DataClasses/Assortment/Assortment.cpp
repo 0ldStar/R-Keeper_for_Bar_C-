@@ -20,7 +20,7 @@ std::vector<std::string> Assortment::getString() {
 }
 
 void Assortment::print() {
-    std::cout << id << " " << supplierId << " " << wholesalePrice << " " << deliveryTerms << " " << paymentTerms << std::endl;
+    std::cout << wholesalePrice << " " << deliveryTerms << " " << paymentTerms << std::endl;
 }
 
 unsigned Assortment::getId() const {

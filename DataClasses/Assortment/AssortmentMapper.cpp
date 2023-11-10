@@ -71,7 +71,7 @@ std::vector<Assortment> AssortmentMapper::getAll() {
     return assortmentList;
 }
 
-bool AssortmentMapper::save(Assortment& assortment) {
+bool AssortmentMapper::save(Assortment& assortment) { // Need to add change method
     bool ret = true;
     PGresult* res = NULL;
     if (assortment.getId() != 0) {

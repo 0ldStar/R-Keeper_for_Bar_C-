@@ -82,7 +82,9 @@ void moveEmployee(DBConnection &dbConnection) {
 
     std::cout << std::endl;
     std::cout << "Input name" << std::endl;
-    std::cin >> name;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
     std::vector<Employee> employeeVector = emplMapper.getByName(name);
     if (employeeVector.size() == 0) {
         std::cout << "Employee with name '" << name << "' not found" << std::endl;
@@ -130,7 +132,9 @@ void getEmployeeTransfers(DBConnection &dbConnection) {
 
     std::cout << std::endl;
     std::cout << "Input name" << std::endl;
-    std::cin >> name;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
     std::vector<Employee> employeeVector = emplMapper.getByName(name);
     if (employeeVector.size() == 0) {
         std::cout << "Employee with name-" << name << " not found" << std::endl;
