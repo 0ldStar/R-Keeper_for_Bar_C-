@@ -1,7 +1,7 @@
 #include "Employee.h"
 
 Employee::Employee(unsigned id, std::string name, std::string address, std::string dateOfBirth, std::string position, unsigned salary) {
-    this->id = id; // move to private and set Mapper as friend class
+    this->id = id;
     this->name = name;
     this->address = address;
     this->dateOfBirth = dateOfBirth;

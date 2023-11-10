@@ -50,7 +50,7 @@ void deleteEmployee(DBConnection &dbConnection) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, name);
-    std::cout << "Do you really want to fire " << name << "? (y/n)" << std::endl; // todo (y/n)
+    std::cout << "Do you really want to fire " << name << "? (y/n)" << std::endl;
     std::cin >> input;
     if (input != 'y')
         return;

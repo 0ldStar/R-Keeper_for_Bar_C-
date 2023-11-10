@@ -12,7 +12,7 @@ void DBConnection::clearRes() {
 void processNotice(void *arg, const char *message) {
     UNUSED(arg);
     UNUSED(message);
-    // do nothing
+    // disable NOTICE
 }
 void DBConnection::terminate(int code) {
     if (code != 0)
@@ -38,7 +38,7 @@ void DBConnection::printInfo() {
     printf("Database name: %s\n", db_name);
 }
 DBConnection::DBConnection() {
-    conn = PQconnectdb("dbname=rpbd_lab1 host=localhost user=db_admin password=password");  // move to config file
+    conn = PQconnectdb("dbname=rpbd_lab1 host=localhost user=db_admin password=password");  // todo move to config file
     res = NULL;
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("We were unable to connect to the database");
@@ -59,7 +59,6 @@ void DBConnection::executeCreateTables(char *query) {
     res = PQexec(conn, query);
 
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-        // printf("res %d != PGRES_COMMAND_OK\n", *res);
         terminate(1);
     }
     clearRes();

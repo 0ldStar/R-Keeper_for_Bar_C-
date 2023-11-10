@@ -17,30 +17,19 @@ void addNewSuppliers(DBConnection &dbConnection) {
     SupplierMapper supplierMapper = SupplierMapper(&dbConnection);
 
     std::string name, postAddress, phoneNumber, faxNumber, email;
-    // std::cin.clear();
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "Input name: ";
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, name);
-    // getStrFromConsole(name);
     std::cout << "Input post address: ";
     std::cin >> postAddress;
-    // std::getline(std::cin, postAddress);
-    // getStrFromConsole(postAddress);
     std::cout << "Input phone number: ";
     std::cin >> phoneNumber;
-    // std::getline(std::cin, phoneNumber);
-    // getStrFromConsole(phoneNumber);
     std::cout << "Input fax number: ";
     std::cin >> faxNumber;
-    // std::getline(std::cin, faxNumber);
-    // getStrFromConsole(faxNumber);
     std::cout << "Input email: ";
     std::cin >> email;
-    // std::getline(std::cin, email);
-    // getStrFromConsole(email);
 
     Supplier supplier(name, postAddress, phoneNumber, faxNumber, email);
 
@@ -59,7 +48,6 @@ void deleteSuppliers(DBConnection &dbConnection) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, name);
-    // getStrFromConsole(name);
 
     std::vector<Supplier> suppliers = supplierMapper.getByName(name);
 
@@ -91,12 +79,9 @@ void changeSupplier(DBConnection &dbConnection) {
 
     std::string name;
     std::cout << "Input name of the supplier to change: ";
-    // std::cin.clear();
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, name);
-    // std::cin >> name;
 
     std::vector<Supplier> suppliers = supplierMapper.getByName(name);
 
@@ -114,23 +99,13 @@ void changeSupplier(DBConnection &dbConnection) {
         if (choice > 0 && choice <= suppliers.size()) {
             std::string postAddress, phoneNumber, faxNumber, email;
 
-            // std::cin.clear();
-            // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
             std::cout << "Input new post address: ";
-            // std::cin.clear();
-            // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            // std::getline(std::cin, postAddress);
             std::cin >> postAddress;
-            // getStrFromConsole(postAddress);
             std::cout << "Input new phone number: ";
-            // getStrFromConsole(phoneNumber);
             std::cin >> phoneNumber;
             std::cout << "Input new fax number: ";
-            // getStrFromConsole(faxNumber);
             std::cin >> faxNumber;
             std::cout << "Input new email: ";
-            // getStrFromConsole(email);
             std::cin >> email;
 
             suppliers[choice - 1].setPostAddress(postAddress);
@@ -227,26 +202,17 @@ void changeSupplierAssortment(DBConnection &dbConnection) {
                     std::string newDeliveryTerms;
                     std::string newPaymentTerms;
 
-                    // Запрос новых данных у пользователя
                     std::cout << "Enter new wholesale price: ";
                     std::cin >> newWholesalePrice;
-                    // std::cin.clear();
-                    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << "Enter new delivery terms: ";
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::getline(std::cin, newDeliveryTerms);
-                    // getStrFromConsole(newDeliveryTerms);
                     std::cout << "Enter new payment terms: ";
-                    // std::cin.clear();
-                    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::getline(std::cin, newPaymentTerms);
-                    // getStrFromConsole(newPaymentTerms);
 
-                    // Создайте новый объект Assortment с обновленными данными
                     Assortment newAssortment(assortment[assortmentChoice - 1].getId(), newWholesalePrice, newDeliveryTerms, newPaymentTerms);
 
-                    // Сохраните новый объект в базе данных
                     AssortmentMapper assortmentMapper = AssortmentMapper(&dbConnection);
                     bool updateSuccess = assortmentMapper.save(newAssortment);
 
