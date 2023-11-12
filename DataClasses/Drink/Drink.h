@@ -12,6 +12,7 @@ class Drink {
     Drink(std::string name, unsigned portion_size, std::string capacity);
     ~Drink();
 
+    unsigned getId();
     std::vector<std::string> getString();
     void print();
 

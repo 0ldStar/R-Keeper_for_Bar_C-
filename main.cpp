@@ -19,7 +19,7 @@ int main() {
         std::cin >> input;
         switch (input) {
             case 1:
-                while (input != 7) {
+                while (input != 8) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cout << std::endl;
@@ -28,32 +28,36 @@ int main() {
                     std::cout << "2) Get the drink menu" << std::endl;
                     std::cout << "3) Get the food menu" << std::endl;
                     std::cout << "4) Add a product to the menu" << std::endl;
-                    std::cout << "5) Remove product from menu" << std::endl;
-                    std::cout << "6) Change product from menu" << std::endl;
-                    std::cout << "7)Exit" << std::endl;
+                    std::cout << "5) Change product from menu" << std::endl;
+                    std::cout << "6) Remove product from menu" << std::endl;
+                    std::cout << "7) Get recipe of a product" << std::endl;
+                    std::cout << "8)Exit" << std::endl;
                     std::cin >> input;
-                    // switch (input) {
-                    //     case 1:
-                    //         getAllMenu(dbConnection);
-                    //         break;
-                    //     case 2:
-                    //         getDrinkMenu(dbConnection);
-                    //         break;
-                    //     case 3:
-                    //         getFoodMenu(dbConnection);
-                    //         break;
-                    //     case 4:
-                    //         addProduct(dbConnection);
-                    //         break;
-                    //     case 5:
-                    //         deleteProduct(dbConnection);
-                    //         break;
-                    //     case 6:
-                    //         changeProduct(dbConnection);
-                    //         break;
-                    //     default:
-                    //         break;
-                    // }
+                    switch (input) {
+                        case 1:
+                            getAllMenu(dbConnection);
+                            break;
+                        case 2:
+                            getDrinkMenu(dbConnection);
+                            break;
+                        case 3:
+                            getFoodMenu(dbConnection);
+                            break;
+                        case 4:
+                            addProduct(dbConnection);
+                            break;
+                        case 5:
+                            changeProduct(dbConnection);
+                            break;
+                        case 6:
+                            deleteProduct(dbConnection);
+                            break;
+                        case 7:
+                            getProductRecipe(dbConnection);
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 break;

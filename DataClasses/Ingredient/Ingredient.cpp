@@ -1,10 +1,10 @@
 #include "Ingredient.h"
 
-Ingredient::Ingredient(unsigned id, unsigned productId, unsigned quantity, std::string unitOfMeasurement)
-    : id(id), productId(productId), quantity(quantity), unitOfMeasurement(unitOfMeasurement) {}
+Ingredient::Ingredient(Product product, unsigned productId, unsigned quantity, std::string unitOfMeasurement)
+    : id(0), productId(productId), quantity(quantity), unitOfMeasurement(unitOfMeasurement), product(product) {}
 
-Ingredient::Ingredient(unsigned productId, unsigned quantity, std::string unitOfMeasurement)
-    : id(0), productId(productId), quantity(quantity), unitOfMeasurement(unitOfMeasurement) {}
+Ingredient::Ingredient(Product product, unsigned id, unsigned productId, unsigned quantity, std::string unitOfMeasurement)
+    : id(id), productId(productId), quantity(quantity), unitOfMeasurement(unitOfMeasurement), product(product) {}
 
 Ingredient::~Ingredient() {}
 
@@ -18,7 +18,7 @@ std::vector<std::string> Ingredient::getString() {
 }
 
 void Ingredient::print() {
-    std::cout << productId << " " << quantity << " " << unitOfMeasurement << std::endl;
+    std::cout << "Name: "<< product.getName() << " Quantity: " << quantity << " Unit of measurement: " << unitOfMeasurement << std::endl;
 }
 
 unsigned Ingredient::getId() const {

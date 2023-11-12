@@ -9,6 +9,9 @@
 #include "EmployeeMapper.h"
 #include "SupplierMapper.h"
 #include "TransferMapper.h"
+#include "DrinkMapper.h"
+#include "SnackMapper.h"
+#include "RecipeMapper.h"
 
 // EMPLOYEE
 void getAllEmployee(DBConnection &dbConnection);
@@ -33,6 +36,7 @@ void getFoodMenu(DBConnection &dbConnection);
 void addProduct(DBConnection &dbConnection);
 void deleteProduct(DBConnection &dbConnection);
 void changeProduct(DBConnection &dbConnection);
+void getProductRecipe(DBConnection &dbConnection);
 
 
 #endif  // MENU_H

@@ -4,6 +4,8 @@ Product::Product(unsigned id, std::string name) : id(id), name(name) {}
 
 Product::Product(std::string name) : id(0), name(name) {}
 
+Product::Product(Product const &other) : id(other.id), name(other.name) {}
+
 Product::~Product() {}
 
 std::vector<std::string> Product::getString() {

@@ -10,6 +10,7 @@ class Product {
    public:
     Product(unsigned id, std::string name);
     Product(std::string name);
+    Product(Product const &other);
     ~Product();
 
     std::vector<std::string> getString();

@@ -19,7 +19,7 @@ void putPQResToList(PGresult* res, std::vector<Ingredient>& ingredientList) {
         char* productId = PQgetvalue(res, i, 1);
         char* quantity = PQgetvalue(res, i, 2);
         char* unitOfMeasurement = PQgetvalue(res, i, 3);
-        ingredientList.push_back(Ingredient(atoi(id), atoi(productId), atoi(quantity), unitOfMeasurement));
+        // ingredientList.push_back(Ingredient(atoi(id), atoi(productId), atoi(quantity), unitOfMeasurement));
     }
 }
 

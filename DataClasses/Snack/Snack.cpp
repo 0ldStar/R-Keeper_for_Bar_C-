@@ -26,3 +26,7 @@ std::vector<std::string> Snack::getString() {
 void Snack::print() {
     std::cout << "Name: " << name << " Size of Portions: " << size_of_portions << std::endl;
 }
+
+unsigned Snack::getId() {
+    return id;
+}

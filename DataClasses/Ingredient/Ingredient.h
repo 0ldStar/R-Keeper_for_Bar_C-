@@ -4,12 +4,14 @@
 #include <iostream>
 #include <string>
 
+#include "Product.h"
+
 class Ingredient {
     friend class IngredientMapper;
 
    public:
-    Ingredient(unsigned id, unsigned productId, unsigned quantity, std::string unitOfMeasurement);
-    Ingredient(unsigned productId, unsigned quantity, std::string unitOfMeasurement);
+    Ingredient(Product product, unsigned productId, unsigned quantity, std::string unitOfMeasurement);
+    Ingredient(Product product, unsigned id, unsigned productId, unsigned quantity, std::string unitOfMeasurement);
     ~Ingredient();
 
     std::vector<std::string> getString();
@@ -24,6 +26,7 @@ class Ingredient {
     unsigned productId;
     unsigned quantity;
     std::string unitOfMeasurement;
+    Product product;
 };
 
 #endif  // INGREDIENT_H

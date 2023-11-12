@@ -29,3 +29,7 @@ std::vector<std::string> Drink::getString() {
 void Drink::print() {
     std::cout << "Name: " << name << " Portion Size: " << portion_size << " Capacity: " << capacity << std::endl;
 }
+
+unsigned Drink::getId() {
+    return id;
+}

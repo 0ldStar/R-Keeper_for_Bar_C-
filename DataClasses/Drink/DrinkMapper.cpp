@@ -12,13 +12,6 @@ void DrinkMapper::saveId(PGresult* res, Drink& drink) {
 }
 
 void putPQResToList(PGresult* res, std::vector<Drink>& drinkList) {
-    int ncols = PQnfields(res);
-    for (int i = 0; i < ncols; i++) {
-        char* name = PQfname(res, i);
-        printf("%s ", name);
-    }
-    printf("\n");
-
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);

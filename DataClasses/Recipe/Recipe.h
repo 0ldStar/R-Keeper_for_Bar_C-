@@ -3,17 +3,20 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+
+#include "Ingredient.h"
 
 class Recipe {
-   public:
     friend class RecipeMapper;
+
+   public:
     enum RecipeType {
         DRINK,
         SNACK
     };
 
-    Recipe(unsigned id, int ingredient_id, RecipeType type);
-    Recipe(int ingredient_id, RecipeType type);
+    Recipe(unsigned id, RecipeType type, std::vector<Ingredient> ingredients);
     ~Recipe();
 
     std::vector<std::string> getString();
@@ -23,8 +26,8 @@ class Recipe {
 
    private:
     unsigned id;
-    int ingredient_id;
     RecipeType type;
+    std::vector<Ingredient> ingredients;
 };
 
 #endif  // RECIPE_H
