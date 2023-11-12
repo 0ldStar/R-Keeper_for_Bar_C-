@@ -197,7 +197,7 @@ void changeProduct(DBConnection &dbConnection) {
 
 void getProductRecipe(DBConnection &dbConnection) {
     int choice;
-    std::cout << "1. Change Drink\n2. Change Snack\nEnter choice: ";
+    std::cout << "1. Get Drink\n2. Get Snack\nEnter choice: ";
     std::cin >> choice;
 
     if (choice == 1) {
@@ -223,19 +223,6 @@ void getProductRecipe(DBConnection &dbConnection) {
                     i.print();
                 }
             }
-            // std::string name, capacity;
-            // unsigned portionSize;
-
-            // std::cout << "Enter new Drink Name: ";
-            // std::cin >> name;
-            // std::cout << "Enter new Portion Size: ";
-            // std::cin >> portionSize;
-            // std::cout << "Enter new Capacity: ";
-            // std::cin >> capacity;
-
-            // Drink drink = Drink(drinks[selection].getId(), name, portionSize, capacity);
-            // drinkMapper.save(drink);
-            // std::cout << "Drink details updated successfully.\n";
         } else {
             std::cout << "Invalid selection.\n";
         }
@@ -253,17 +240,15 @@ void getProductRecipe(DBConnection &dbConnection) {
         std::cin >> selection;
 
         if (selection < snacks.size()) {
-            // std::string name, capacity;
-            // unsigned portionSize;
-
-            // std::cout << "Enter new Snack Name: ";
-            // std::cin >> name;
-            // std::cout << "Enter new Portion Size: ";
-            // std::cin >> portionSize;
-
-            // Snack snack = Snack(snacks[selection].getId(), name, portionSize);
-            // snackMapper.save(snack);
-            // std::cout << "Drink details updated successfully.\n";
+            RecipeMapper recipeMapper(&dbConnection);
+            std::vector<Recipe> recipeList = recipeMapper.getByPositionId(Recipe::SNACK, snacks[selection].getId());
+            if (recipeList.empty()) {
+                std::cout << "No recipes found" << std::endl;
+            } else {
+                for (auto &i : recipeList) {
+                    i.print();
+                }
+            }
         } else {
             std::cout << "Invalid selection.\n";
         }

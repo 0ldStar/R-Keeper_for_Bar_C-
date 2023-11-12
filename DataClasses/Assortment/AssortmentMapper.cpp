@@ -14,13 +14,6 @@ void AssortmentMapper::saveId(PGresult* res, Assortment& assortment) {
 }
 
 void putPQResToList(PGresult* res, std::vector<Assortment>& assortmentList) {
-    int ncols = PQnfields(res);
-    for (int i = 0; i < ncols; i++) {
-        char* name = PQfname(res, i);
-        printf("%s ", name);
-    }
-    printf("\n");
-
     int nrows = PQntuples(res);
     for (int i = 0; i < nrows; i++) {
         char* id = PQgetvalue(res, i, 0);

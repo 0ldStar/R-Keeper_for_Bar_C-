@@ -24,7 +24,7 @@ void addNewEmployee(DBConnection &dbConnection) {
     std::getline(std::cin, name);
     std::cout << "Input address" << std::endl;
     std::getline(std::cin, address);
-    std::cout << "Input date of birth (DD.MM.YYY)" << std::endl;
+    std::cout << "Input date of birth (DD.MM.YYYY)" << std::endl;
     std::cin >> dateOfBirth;
     std::cout << "Input position" << std::endl;
     std::cin.clear();
@@ -113,7 +113,7 @@ void moveEmployee(DBConnection &dbConnection) {
     std::getline(std::cin, reason );
     std::cout << "Input number of order" << std::endl;
     std::cin >> numberOfOrder;
-    std::cout << "Input date of order (DD.MM.YYY)" << std::endl;
+    std::cout << "Input date of order (DD.MM.YYYY)" << std::endl;
     std::cin >> dateOfOrder;
 
     Transfer transfer = Transfer(employeeVector[j].getId(), position, reason, numberOfOrder, dateOfOrder);

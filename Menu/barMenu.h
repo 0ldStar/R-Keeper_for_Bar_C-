@@ -12,6 +12,7 @@
 #include "DrinkMapper.h"
 #include "SnackMapper.h"
 #include "RecipeMapper.h"
+#include "ProductMapper.h"
 
 // EMPLOYEE
 void getAllEmployee(DBConnection &dbConnection);

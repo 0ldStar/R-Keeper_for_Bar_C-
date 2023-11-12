@@ -22,7 +22,7 @@ void putPQResToList(PGresult* res, std::vector<Product>& productList) {
 
 std::vector<Product> ProductMapper::getByAssortmentId(unsigned assortmentId) {
     PGresult* res;
-    char query[100];
+    char query[150];
     std::vector<Product> productList;
     snprintf(query, sizeof(query), "SELECT p.id, p.name FROM products p JOIN product_assortment pa ON p.id = pa.product_id WHERE pa.assortment_id = %u;", assortmentId);
     res = PQexec(conn->conn, query);

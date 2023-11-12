@@ -83,7 +83,7 @@ bool SnackMapper::save(Snack& snack) {
     } else {
         char query[] =
             "INSERT INTO snacks (name, size_of_portions)"
-            "VALUES ($1, $2);";
+            "VALUES ($1, $2) RETURNING id;";
         const char* params[2];
         std::vector<std::string> snackString = snack.getString();
         for (size_t i = 0; i < 2; i++)

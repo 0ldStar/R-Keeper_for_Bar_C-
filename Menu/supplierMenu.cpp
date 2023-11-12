@@ -149,12 +149,20 @@ void getSupplierAssortment(DBConnection &dbConnection) {
         if (choice > 0 && choice <= suppliers.size()) {
             AssortmentMapper assortmentMapper = AssortmentMapper(&dbConnection);
             std::vector<Assortment> assortment = assortmentMapper.getBySupplierName(suppliers[choice - 1].getName());
-
+            ProductMapper productMapper = ProductMapper(&dbConnection);
             if (!assortment.empty()) {
                 std::cout << "Assortment for supplier '" << suppliers[choice - 1].getName() << "':" << std::endl;
                 for (size_t i = 0; i < assortment.size(); ++i) {
                     std::cout << i + 1 << ") ";
                     assortment[i].print();
+                    std::vector<Product> products = productMapper.getByAssortmentId(assortment[i].getId());
+                    if (products.empty()) {
+                        std::cout << "Products empty" << std::endl;
+                    } else {
+                        for (auto &i : products) {
+                            i.print();
+                        }
+                    }
                 }
             } else {
                 std::cout << "No assortment found for supplier '" << suppliers[choice - 1].getName() << "'." << std::endl;
