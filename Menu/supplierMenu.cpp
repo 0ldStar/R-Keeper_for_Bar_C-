@@ -215,7 +215,7 @@ void changeSupplierAssortment(DBConnection &dbConnection) {
                     std::cout << "Enter new payment terms: ";
                     std::getline(std::cin, newPaymentTerms);
 
-                    Assortment newAssortment(assortment[assortmentChoice - 1].getId(), newWholesalePrice, newDeliveryTerms, newPaymentTerms);
+                    Assortment newAssortment(assortment[assortmentChoice - 1].getId(), suppliers[choice - 1].getId(), newWholesalePrice, newDeliveryTerms, newPaymentTerms);
 
                     AssortmentMapper assortmentMapper = AssortmentMapper(&dbConnection);
                     bool updateSuccess = assortmentMapper.save(newAssortment);
@@ -230,6 +230,58 @@ void changeSupplierAssortment(DBConnection &dbConnection) {
                 }
             } else {
                 std::cout << "No assortment found for supplier '" << suppliers[choice - 1].getName() << "'." << std::endl;
+            }
+        } else {
+            std::cout << "Invalid choice." << std::endl;
+        }
+    }
+}
+
+void addSupplierAssortment(DBConnection &dbConnection) {
+    SupplierMapper supplierMapper = SupplierMapper(&dbConnection);
+
+    std::string name;
+    std::cout << "Input name of the supplier to add assortment: ";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, name);
+
+    std::vector<Supplier> suppliers = supplierMapper.getByName(name);
+
+    if (suppliers.empty()) {
+        std::cout << "No suppliers found with that name." << std::endl;
+    } else {
+        std::cout << "Select the supplier to add assortment:" << std::endl;
+        for (size_t i = 0; i < suppliers.size(); ++i) {
+            std::cout << i + 1 << ") " << suppliers[i].getName() << std::endl;
+        }
+
+        int choice;
+        std::cin >> choice;
+
+        if (choice > 0 && choice <= suppliers.size()) {
+            double wholesalePrice;
+            std::string deliveryTerms;
+            std::string paymentTerms;
+
+            std::cout << "Enter wholesale price: ";
+            std::cin >> wholesalePrice;
+            std::cout << "Enter delivery terms: ";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::getline(std::cin, deliveryTerms);
+            std::cout << "Enter payment terms: ";
+            std::getline(std::cin, paymentTerms);
+
+            Assortment newAssortment(suppliers[choice - 1].getId(), wholesalePrice, deliveryTerms, paymentTerms);
+
+            AssortmentMapper assortmentMapper = AssortmentMapper(&dbConnection);
+            bool updateSuccess = assortmentMapper.save(newAssortment);
+
+            if (updateSuccess) {
+                std::cout << "Assortment updated successfully." << std::endl;
+            } else {
+                std::cout << "Failed to update assortment." << std::endl;
             }
         } else {
             std::cout << "Invalid choice." << std::endl;

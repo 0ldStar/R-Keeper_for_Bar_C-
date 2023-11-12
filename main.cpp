@@ -92,7 +92,7 @@ int main() {
                 }
                 break;
             case 3:
-                while (input != 7) {
+                while (input != 8) {
                     std::cout << std::endl;
                     std::cout << "Suppliers menu:" << std::endl;
                     std::cout << "1) Get a list of suppliers" << std::endl;
@@ -100,8 +100,9 @@ int main() {
                     std::cout << "3) Remove supplier" << std::endl;
                     std::cout << "4) Change supplier details" << std::endl;
                     std::cout << "5) Get the supplier's assortment" << std::endl;
-                    std::cout << "6) Change supplier assortment" << std::endl;
-                    std::cout << "7)Exit" << std::endl;
+                    std::cout << "6) Add supplier's assortment" << std::endl;
+                    std::cout << "7) Change supplier`s assortment" << std::endl;
+                    std::cout << "8)Exit" << std::endl;
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::cin >> input;
@@ -122,6 +123,9 @@ int main() {
                             getSupplierAssortment(dbConnection);
                             break;
                         case 6:
+                            addSupplierAssortment(dbConnection);
+                            break;
+                        case 7:
                             changeSupplierAssortment(dbConnection);
                             break;
                         default:

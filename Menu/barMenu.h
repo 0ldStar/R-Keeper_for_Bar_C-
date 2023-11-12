@@ -24,7 +24,7 @@ void deleteSuppliers(DBConnection &dbConnection);
 void changeSupplier(DBConnection &dbConnection);
 void getSupplierAssortment(DBConnection &dbConnection);
 void changeSupplierAssortment(DBConnection &dbConnection);
-
+void addSupplierAssortment(DBConnection &dbConnection);
 
 //BAR
 void getAllMenu(DBConnection &dbConnection);

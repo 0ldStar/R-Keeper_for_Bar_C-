@@ -71,9 +71,10 @@ std::vector<Assortment> AssortmentMapper::getAll() {
     return assortmentList;
 }
 
-bool AssortmentMapper::save(Assortment& assortment) { // Need to add change method
+bool AssortmentMapper::save(Assortment& assortment) { // todo Need to add change method
     bool ret = true;
     PGresult* res = NULL;
+    std::cout << "Assortment id " << assortment.getId() << std::endl;
     if (assortment.getId() != 0) {
         char query[] =
             "UPDATE assortments SET supplier_id = $2, wholesale_price = $3, delivery_terms = $4, payment_terms = $5"
